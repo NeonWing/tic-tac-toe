@@ -153,6 +153,7 @@ const gameDisplay = (() => {
     const playerOneCard = document.querySelector(".player-one");
     const playerTwoCard = document.querySelector(".player-two");
     const vs = document.querySelector(".vs");
+    let colorMode = "light";
 
     const changeToGameBoard = () => {
         if(playerOne.type === undefined || playerTwo.type === undefined) return;
@@ -182,7 +183,8 @@ const gameDisplay = (() => {
     playButton.addEventListener('click', changeToGameBoard);
 
     return {
-        showCurrentTurn
+        showCurrentTurn,
+        colorMode
     }
 })();
 
