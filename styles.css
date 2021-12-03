@@ -1,0 +1,175 @@
+@import url('https://fonts.googleapis.com/css2?family=Nerko+One&display=swap');
+
+body {
+    margin: 0;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    font-family: "Nerko One", Arial, Helvetica, sans-serif;
+}
+
+.header {
+    padding: 15px;
+    font-size: 48px;
+    font-weight: bold;
+}
+
+.player-select-section {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    gap: 100px;
+    flex: 1;
+    margin-top: 50px;
+}
+
+.player-select-section .vs {
+    font-size: 52px;
+}
+
+.player-select-card{
+    width: 45vh;
+    height: 50vh;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+    border-radius: 12px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.player-icon-section {
+    flex: 1;
+    width: 100%;
+    background-size: cover;
+}
+
+.dionysus {
+    background-image: url(./Dionysus.webp);
+}
+
+.aphrodite {
+    background-image: url(./Hades-A-cosplay-of-Aphrodite-the-goddess-of-love-in.webp.webp);
+}
+
+.player-type-section {
+    display: flex;
+    width: 100%;
+}
+
+.player-select {
+    width: 50%;
+    height: 100px;
+    border: none;
+    border-top: 1px solid #ccc;
+    background-color: white;
+    font-family: "Nerko One", Arial, Helvetica, sans-serif;
+    font-size: 24px;
+    cursor: pointer;
+    transition: 0.25s;
+}
+
+
+#player {
+    border-right: 1px solid #ccc;
+}
+
+.selected-player {
+    background-color: #2196f3;
+    border-top: 1px solid #2196f3;
+    border-right: 1px solid #2196f3;
+    color: white;
+}
+
+#ai {
+    border-left: 1px solid #ccc;
+}
+
+.selected-ai {
+    background-color: #dd2d4a;
+    border-top: 1px solid #dd2d4a;
+    border-left: 1px solid #dd2d4a;
+    color: white;
+}
+
+.play-button-section {
+    flex: 1;
+    margin-top: 50px;
+}
+
+.play-button {
+    border: none;
+    color: white;
+    background-color: black;
+    padding: 10px 20px;
+    font-family: "Nerko One", Arial, Helvetica, sans-serif;
+    font-size: 36px;
+    cursor: pointer;
+    transition: 0.25s;
+}
+
+.board {
+    display: flex;
+    flex-wrap: wrap;
+    width: 50vh;
+    height: 50vh;
+    justify-content: center;
+    align-items: center;
+    margin: 30px 100px;
+}
+
+.box {
+    width: calc(50vh / 3 - 4px);
+    height: calc(50vh / 3 - 2px);
+    border: 2px solid black;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-family: 'Nerko One', Arial;
+    font-size: 20vh;
+    cursor: pointer;
+}
+
+/* Screen Two */
+.screen-two {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.game-section {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.best-of, .round-title, .round-count {
+    font-size: 36px;
+    font-weight: bold;
+}
+
+.player-ones-side, .player-twos-side {
+    align-self: flex-start;
+    font-size: 24px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.active {
+    color: rgb(56, 189, 56);
+}
+
+/* Box shit */
+.gray {
+    color: #ccc;
+}
+
+.marked {
+    color: black;
+}
+
+.hidden {
+    display: none;
+}

@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="./styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css">
+    <script src="./script.js" defer></script>
+    <title>Tic Tac Toe</title>
+</head>
+<body>
+    <div class="header">Tic Tac Toe</div>
+    <div class="player-select-section">
+        <div class="player-select-card player-one" data-player-type="" data-player="one">
+            <div class="player-icon-section dionysus">
+            </div>
+            <div class="player-type-section player-one-select">
+                <button class="player-select" id="player">Player</button>
+                <button class="player-select" id="ai">AI</button>
+            </div>
+        </div>
+        <span class="vs">VS</span>
+        <div class="player-select-card player-two" data-player-type="" data-player="two">
+            <div class="player-icon-section aphrodite">
+            </div>
+            <div class="player-type-section player-two-select">
+                <button class="player-select" id="player">Player</button>
+                <button class="player-select" id="ai">AI</button>
+            </div>
+        </div>
+    </div>
+    <div class="play-button-section">
+        <button class="play-button">Play</button>
+    </div>
+
+    <div class="screen-two hidden">
+        <span class="best-of">Best of 3</span>
+        <span class="round-title">Round</span>
+        <span class="round-count">1</span>
+        <div class="game-section">
+            <div class="player-ones-side">
+                <span class="player-name player-one-name active">Player 1</span>
+                <img src="./Dionysus-bond-forged.webp" alt="" class="player-image">
+                <span class="wins">Wins: <span class="win-count">0</span></span>
+            </div>
+            <div class="board"></div>
+            <div class="player-twos-side">
+                <span class="player-name player-two-name">Player 2</span>
+                <img src="./Aphrodite-bond-icon.webp" alt="" class="player-image">
+                <span class="wins">Wins: <span class="win-count">0</span></span>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
