@@ -1,5 +1,9 @@
 @import url('https://fonts.googleapis.com/css2?family=Nerko+One&display=swap');
 
+* {
+    transition: 0.5s;
+}
+
 body {
     margin: 0;
     height: 100vh;
@@ -47,11 +51,11 @@ body {
     background-size: cover;
 }
 
-.dionysus {
+.dionysus-image {
     background-image: url(./card-backgrounds/Dionysus.webp);
 }
 
-.aphrodite {
+.aphrodite-image {
     background-image: url(./card-backgrounds/Hades-A-cosplay-of-Aphrodite-the-goddess-of-love-in.webp.webp);
 }
 
@@ -127,6 +131,7 @@ body {
     font-family: 'Nerko One', Arial;
     font-size: 20vh;
     cursor: pointer;
+    transition: 0s;
 }
 
 /* Screen Two */
@@ -231,9 +236,9 @@ body {
     background-color: #ccc;
     -webkit-transition: .4s;
     transition: .4s;
-  }
-  
-  .slider:before {
+}
+
+.slider:before {
     position: absolute;
     content: "";
     height: 26px;
@@ -243,26 +248,49 @@ body {
     background-color: white;
     -webkit-transition: .4s;
     transition: .4s;
-  }
-  
-  input:checked + .slider {
+}
+
+input:checked + .slider {
     background-color: #4361ee;
-  }
-  
-  input:focus + .slider {
+}
+
+input:focus + .slider {
     box-shadow: 0 0 1px #4361ee;
-  }
-  
-  input:checked + .slider:before {
+}
+
+input:checked + .slider:before {
     -webkit-transform: translateX(26px);
     -ms-transform: translateX(26px);
     transform: translateX(26px);
-  }
-  
-  .slider.round {
+}
+
+.slider.round {
     border-radius: 34px;
-  }
-  
-  .slider.round:before {
+}
+
+.slider.round:before {
     border-radius: 50%;
-  }
+}
+
+
+.dionysus-color {
+    color: #d50ee0;
+}
+
+.dionysus-button {
+    background-color: #d50ee0;
+    color: white;
+    border-top: 1px solid #d50ee0;
+    border-right: 1px solid #d50ee0;
+}
+
+.aphrodite-color {
+    color: #f288f3;
+}
+
+.aphrodite-button {
+    background-color: #f288f3;
+    color: white;
+    border-top: 1px solid #f288f3;
+    border-right: 1px solid #f288f3;
+}

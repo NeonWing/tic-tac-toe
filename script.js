@@ -1,12 +1,23 @@
-const Player = function(turn, symbol, spots) {
+const Dionysus = {
+    color: "#d50ee0",
+    buttonClass: "dionysus-button"
+};
+
+const Aphrodite = {
+    color: "#f288f3",
+    buttonClass: "aphrodite-button"
+}
+
+const Player = function(turn, symbol, spots, god) {
     this.turn = turn;
     this.symbol = symbol;
     let type;
     this.spots = spots;
+    this.god = god;
 };
 
-const playerOne = new Player(1, 'X', []);
-const playerTwo = new Player(2, 'O', []);
+const playerOne = new Player(1, 'X', [], Dionysus);
+const playerTwo = new Player(2, 'O', [], Aphrodite);
 
 const gameManager = (() => {
     let currentPlayer = playerOne;
@@ -55,6 +66,7 @@ const gameBoard = (() => {
     let enabled = true;
 
     const markSpot = function(e) {
+        if(e.target.classList.contains("marked")) return;
         if(gameBoard.enabled) {
             if(e.target.classList.contains("gray")) {
                 e.target.classList.remove("gray");
@@ -126,7 +138,12 @@ const playerSelectManager = (() => {
         }
 
         //Set Class
-        (button.id === "player") ? button.classList.add("selected-player") : button.classList.add("selected-ai");
+        if(button.id === "player") {
+             if(player === "one") button.classList.add(playerOne.god.buttonClass)
+             else button.classList.add(playerTwo.god.buttonClass)  
+        } else {
+            button.classList.add("selected-ai");
+        }
 
         //Set data
         if(player === "one") {
@@ -181,6 +198,30 @@ const gameDisplay = (() => {
 
     const playButton = document.querySelector(".play-button");
     playButton.addEventListener('click', changeToGameBoard);
+
+    const colorModeSwitcher = document.getElementById("colorModeSwitch");
+    colorModeSwitcher.checked=false;
+    colorModeSwitcher.addEventListener('change', () => {
+        let elements = [...document.querySelectorAll(".light-back, .light-text, .light-button, .light-button-text, .dark-back, .dark-text, .dark-button, .dark-button-text")];
+        elements.forEach((el) => {
+            if(el.classList.contains("light-back") || el.classList.contains("dark-back")) {
+                el.classList.toggle("light-back");
+                el.classList.toggle("dark-back");
+            }
+            if(el.classList.contains("light-text") || el.classList.contains("dark-text")) {
+                el.classList.toggle("light-text");
+                el.classList.toggle("dark-text");
+            }
+            if(el.classList.contains("light-button") || el.classList.contains("dark-button")) {
+                el.classList.toggle("light-button");
+                el.classList.toggle("dark-button");
+            }
+            if(el.classList.contains("light-button-text") || el.classList.contains("dark-button-text")) {
+                el.classList.toggle("light-button-text");
+                el.classList.toggle("dark-button-text");
+            }
+        });
+    });
 
     return {
         showCurrentTurn,
