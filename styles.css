@@ -98,6 +98,19 @@ body {
     color: white !important;
 }
 
+.edit {
+    cursor: pointer;
+    margin-top: 5px;
+    margin-left: 5px;
+    color: #ccc;
+    font-size: 24px;
+    transition: 0.25s;
+}
+
+.edit:hover {
+    color: whitesmoke;
+}
+
 .play-button-section {
     flex: 1;
     margin-top: 50px;
@@ -124,7 +137,6 @@ body {
 .box {
     width: calc(50vh / 3 - 4px);
     height: calc(50vh / 3 - 2px);
-    border: 2px solid black;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -132,6 +144,14 @@ body {
     font-size: 20vh;
     cursor: pointer;
     transition: 0s;
+}
+
+.box-light {
+    border: 2px solid black;
+}
+
+.box-dark {
+    border: 2px solid whitesmoke;
 }
 
 /* Screen Two */
@@ -170,8 +190,12 @@ body {
     color: #ccc;
 }
 
-.marked {
+.marked-light {
     color: black;
+}
+
+.marked-dark {
+    color: whitesmoke;
 }
 
 .hidden {
