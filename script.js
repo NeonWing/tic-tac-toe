@@ -1,11 +1,36 @@
 const Dionysus = {
-    color: "#d50ee0",
-    buttonClass: "dionysus-button"
+    color: "dionysus-color",
+    buttonClass: "dionysus-button",
+    image: "dionysus-image",
+    bond: "./bond/Dionysus-bond-forged.webp"
 };
 
 const Aphrodite = {
-    color: "#f288f3",
-    buttonClass: "aphrodite-button"
+    color: "aphrodite-color",
+    buttonClass: "aphrodite-button",
+    image: "aphrodite-image",
+    bond: "./bond/Aphrodite-bond-icon.webp"
+}
+
+const Ares = {
+    color: "ares-color",
+    buttonClass: "ares-button",
+    image: "ares-image",
+    bond: "./bond/Ares-bond-icon.webp"
+}
+
+const Artemis = {
+    color: "artemis-color",
+    buttonClass: "artemis-button",
+    image: "artemis-image",
+    bond: "./bond/Artemis-bond-forged.webp"
+}
+
+const Hermes = {
+    color: "hermes-color",
+    buttonClass: "hermes-button",
+    image: "hermes-image",
+    bond: "./bond/Hermes-bond-forged.webp"
 }
 
 const Player = function(turn, symbol, spots, god) {
@@ -287,6 +312,90 @@ const playerSelectManager = (() => {
             setPlayerType(button, playerNum, dataRef);
         });
     });
+
+    //Remove Old God
+    const removePlayerGod = (num, player) => {
+        document.querySelector(`.player-${num}-select`).querySelector(".player-select").classList.remove(player.god.buttonClass);
+        document.querySelector(`.player-${num}`).querySelector(`.player-icon-section`).classList.remove(player.god.image);
+    }
+
+    //Add new God
+    const addPlayerGod = (num, player) => {
+        document.querySelector(`.player-${num}s-side`).querySelector(".player-image").src = player.god.bond;
+        document.querySelector(`.player-${num}`).querySelector(`.player-icon-section`).classList.add(player.god.image);
+    }
+
+    //Edit God 
+    const playerOneEdit = document.querySelector(".player-one").querySelector(".edit");
+    const playerTwoEdit = document.querySelector(".player-two").querySelector(".edit");
+
+    playerOneEdit.addEventListener("click", () => {
+        editPlayer.openModal(playerOne);
+    });
+    playerTwoEdit.addEventListener("click", () => {
+        editPlayer.openModal(playerTwo);
+    });
+
+    return {
+        removePlayerGod,
+        addPlayerGod
+    }
+})();
+
+const editPlayer = (() => {
+    const modal = document.querySelector("#modal");
+    const modalClose = document.querySelector(".close");
+    let playerToEdit;
+
+    modalClose.addEventListener("click", () => {
+        modal.classList.toggle("hidden");
+    });
+
+    const openModal = (player) => {
+        editPlayer.modal.classList.toggle("hidden");
+        playerToEdit = player;
+    }
+
+    const changeGod = (god) => {
+        if(playerToEdit === playerOne) {
+            playerSelectManager.removePlayerGod("one", playerOne);
+            playerToEdit.god = god;
+            playerSelectManager.addPlayerGod("one", playerOne);
+        } else {
+            playerSelectManager.removePlayerGod("two", playerTwo);
+            playerToEdit.god = god;
+            playerSelectManager.addPlayerGod("two", playerTwo);
+        }
+    }
+
+    document.querySelectorAll(".god").forEach((god) => {
+        god.addEventListener("click", () => {
+            switch(god.id) {
+                case "dionysus":
+                    editPlayer.changeGod(Dionysus);
+                    break;
+                case "aphrodite":
+                    editPlayer.changeGod(Aphrodite);
+                    break;
+                case "artemis":
+                    editPlayer.changeGod(Artemis);
+                    break;
+                case "hermes":
+                    editPlayer.changeGod(Hermes);
+                    break;
+                case "ares":
+                    editPlayer.changeGod(Ares);
+                    break;
+            }
+        });
+    });
+
+    return {
+        modal,
+        openModal,
+        changeGod,
+        playerToEdit
+    }
 })();
 
 
