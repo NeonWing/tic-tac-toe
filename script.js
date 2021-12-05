@@ -11,9 +11,10 @@ const Aphrodite = {
 const Player = function(turn, symbol, spots, god) {
     this.turn = turn;
     this.symbol = symbol;
-    let type;
+    this.type;
     this.spots = spots;
     this.god = god;
+    this.roundWins = 0;
 };
 
 const playerOne = new Player(1, 'X', [], Dionysus);
@@ -22,6 +23,7 @@ const playerTwo = new Player(2, 'O', [], Aphrodite);
 const gameManager = (() => {
     let currentPlayer = playerOne;
     const winCons = [[0, 1, 2], [0, 3, 6], [0, 4, 8], [1, 4, 7], [2, 4, 6], [2, 5, 8], [3, 4, 5], [6, 7, 8]];
+    let round = 1;
 
     const changeTurn = function() {
         (gameManager.currentPlayer.turn === 1) ? gameManager.currentPlayer = playerTwo : gameManager.currentPlayer = playerOne;
@@ -53,10 +55,18 @@ const gameManager = (() => {
         return false;
     }
 
+    const playerWonRound = () => {
+        gameManager.currentPlayer.roundWins++;
+        gameManager.round++;
+        gameDisplay.updateRoundWin();
+    }
+
     return {
         currentPlayer,
         changeTurn,
-        checkForWins
+        checkForWins,
+        playerWonRound,
+        round
     }
 })(); 
 
@@ -86,8 +96,13 @@ const gameDisplay = (() => {
         const playerOneNameTag = document.querySelector(".player-one-name");
         const playerTwoNameTag = document.querySelector(".player-two-name");
 
-        playerTwoNameTag.classList.toggle("active");
-        playerOneNameTag.classList.toggle("active");
+        if(gameManager.currentPlayer.turn === 1) {
+            playerTwoNameTag.classList.remove("active");
+            playerOneNameTag.classList.add("active");
+        } else {
+            playerTwoNameTag.classList.add("active");
+            playerOneNameTag.classList.remove("active");
+        }
     }
 
     const playButton = document.querySelector(".play-button");
@@ -97,7 +112,6 @@ const gameDisplay = (() => {
     colorModeSwitcher.checked = false;
     colorModeSwitcher.addEventListener('change', () => {
         (gameDisplay.colorMode === "light") ? gameDisplay.colorMode = "dark" : gameDisplay.colorMode = "light";
-        console.log(gameDisplay.colorMode);
         let elements = [...document.querySelectorAll(".light-back, .light-text, .light-button, .light-button-text, .box-light , .marked-light, .dark-back, .dark-text, .dark-button, .dark-button-text, .box-dark, .marked-dark")];
         elements.forEach((el) => {
             if(el.classList.contains("light-back") || el.classList.contains("dark-back")) {
@@ -127,9 +141,31 @@ const gameDisplay = (() => {
         });
     });
 
+    const updateRoundWin = () => {
+        if(gameManager.currentPlayer.turn === 1) {
+            document.querySelector(".player-ones-side").querySelector(".win-count").textContent = gameManager.currentPlayer.roundWins;
+        } else {
+            document.querySelector(".player-twos-side").querySelector(".win-count").textContent = gameManager.currentPlayer.roundWins;
+        }
+
+        playerOne.spots = [];
+        playerTwo.spots = [];
+
+        gameManager.currentPlayer = playerOne;
+
+        setTimeout(() => {
+            gameBoard.clearBoxes();
+            document.querySelector(".round-count").textContent = gameManager.round;
+            gameDisplay.showCurrentTurn();
+        }, 2000)
+
+        gameBoard.enabled = true;
+    }
+
     return {
         showCurrentTurn,
-        colorMode
+        colorMode,
+        updateRoundWin
     }
 })();
 
@@ -150,6 +186,7 @@ const gameBoard = (() => {
 
             e.target.textContent = gameManager.currentPlayer.symbol;
             if(gameManager.checkForWins(gameManager.currentPlayer.spots)){
+                gameManager.playerWonRound();
                 return;
             } else if (gameManager.checkForWins(gameManager.currentPlayer.spots) === 3) {
                 return;
@@ -171,7 +208,6 @@ const gameBoard = (() => {
 
         e.target.textContent = "";
         e.target.classList.remove("gray");
-        e.target.classList.remove("marked");
     }
 
     for(let i = 0; i < 9; i++) {
@@ -193,8 +229,16 @@ const gameBoard = (() => {
         if(i > 5) boxes[i].style.borderBottom = "none";
     }
 
+    const clearBoxes = () => {
+        boxes.forEach((box) => {
+            box.textContent = "";
+            box.classList.remove(`marked-${gameDisplay.colorMode}`);
+        });
+    }
+
     return {
-        enabled
+        enabled,
+        clearBoxes
     }
 })();
 
