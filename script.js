@@ -35,13 +35,13 @@ const gameManager = (() => {
             for(let i = 0; i < moveset.length; i++) {
                 if(winCons[j].includes(moveset[i])) {
                     counter++;
-                    // console.log(`Player ${gameManager.currentPlayer.turn} Potential Win ${winCons[j]} - ${moveset[i]} - Hits ${counter}`);
+                    console.log(`Player ${gameManager.currentPlayer.turn} Potential Win ${winCons[j]} - ${moveset[i]} - Hits ${counter}`);
                 }
     
                 if(counter === 3) {
                     console.log(`Player ${gameManager.currentPlayer.turn} Won!`);
                     gameBoard.enabled = false;
-                    return true;
+                    return 1;
                 }
             }
             counter = 0;
@@ -185,10 +185,12 @@ const gameBoard = (() => {
             gameManager.currentPlayer.spots.push(boxes.indexOf(e.target));
 
             e.target.textContent = gameManager.currentPlayer.symbol;
-            if(gameManager.checkForWins(gameManager.currentPlayer.spots)){
+            if(gameManager.checkForWins(gameManager.currentPlayer.spots) === 1){
                 gameManager.playerWonRound();
                 return;
             } else if (gameManager.checkForWins(gameManager.currentPlayer.spots) === 3) {
+                gameManager.round++;
+                gameDisplay.updateRoundWin();
                 return;
             }
             gameManager.changeTurn();
